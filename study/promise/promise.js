@@ -181,6 +181,7 @@ Promise.prototype.finally = function(callback){
     })
   })
 }
+
 Promise.defer = Promise.deferred = ()=>{
   let dfd = {}
   dfd.promise = new Promise((resolve,reject)=>{
