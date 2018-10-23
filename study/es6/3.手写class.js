@@ -9,7 +9,7 @@ function _classCallCheck(sub,constructor){
 
 function defineProperties(target,props) {  
   for(let i=0;i<props.length;i++){
-  console.log('进来了',props)
+  // console.log('进来了',props)
     Object.defineProperty(target,props[i].key,{
       ...props[i]
     })
@@ -36,13 +36,13 @@ let Animal = function(){
     {
       key:'eat',
       value:function () {
-        console.log('吃')
+        // console.log('吃')
       }
     },
     {
       key:'drink',
       value:function () {
-        console.log('喝')
+        // console.log('喝')
       }
     }
   ],[
@@ -55,6 +55,21 @@ let Animal = function(){
   ])
   return Animal
 }()
+function _inherits(subClass,parentClass){
+  subClass:prototype = Object.create(parentClass.prototype,{constructor:{value:subClass}})
+  //继承静态属性
+  Object.setPrototypeOf(subClass,parentClass)
+}
 
-let a = new Animal('sf')
-console.log(Animal.flag())
+// 子类
+let Cat = function(Animal){
+  _inherits(Cat,Animal);
+  function Cat(type) {
+    _classCallCheck(this, Cat);
+    Animal.call(this, type)
+  }
+  return Cat
+}(Animal)
+
+let a = new Cat('sf')
+console.log(a.eat())
