@@ -15,7 +15,6 @@ class Cat extends Animal{ //内置了call 也继承了共有属性
   constructor(type){
     super(type)//Animal.call(this,type)
   }
-
 }
 //静态方法  子类可以继承
 let animal = new Cat('123')
