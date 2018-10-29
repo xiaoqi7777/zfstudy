@@ -31,7 +31,7 @@ let Animal = function(){
     _classCallCheck(this,Animal)
     this.data = data
   }
-  // 第一个参数定义哪一个类  第二个参数就是定义类上的属性 第三个参数就是类上的属性
+  // 第一个参数定义哪一个类  第二个参数就是定义类上的属性 第三个参数就是类上的属性(static 只有改类才能调用 不能被继承)
   _createClass(Animal,[
     {
       key:'eat',
