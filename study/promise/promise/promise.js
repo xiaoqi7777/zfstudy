@@ -33,6 +33,7 @@ class Promise{
     onFulfilled = typeof onFulfilled === 'function' ?  onFulfilled : (data)=>{
       return data
     }
+    console.log('----------',onFulfilled)
     onRejected = typeof onRejected === 'function' ? onRejected : (data)=>{
       throw data
     }
