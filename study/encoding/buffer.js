@@ -7,8 +7,12 @@
 
 //如何声明一个buffer
 //1、通过数字声明一个buffer
-// alloc 申请 申请之后长度就不能更改
+// Buffer.alloc('') 通过数组声明
+// Buffer.from('')  通过存放数组或者字符
 
+
+
+// alloc 申请 申请之后长度就不能更改
 // let buf1 = Buffer.alloc(3) //3指代的是字节
 // console.log(buf1.length) 
 
@@ -18,7 +22,9 @@
 // let buf3 = Buffer.from('珠峰')
 // console.log(buf3.length) //6  一个汉字3个字节
 
-//2、buffer中有slice方法 buffer也可以循环
+
+// 2、buffer方法  跟数组类似(没有分割join)
+//  slice forEach copy concat(同数组) indexOf(同数组)
 // buf3.forEach((item)=>{
 //   console.log(item)
 // })
@@ -29,25 +35,56 @@
 //  console.log(arr)
 
 
-// 如何copy
+// 如何copy 
 // 把两个小buffer 拷贝到一个大的内存空间上
-let buf1 = Buffer.alloc(12)
-let buf2 = Buffer.from('正负')
-let buf3 = Buffer.from('培训')
+// let buf1 = Buffer.alloc(12)
+// let buf2 = Buffer.from('正负')
+// let buf3 = Buffer.from('培训')
 // target targetStart sourceStart  sourceEnd //0代表第一个
 // Buffer.prototype.copy = function(target,targetStart,sourceStart,sourceEnd){
 //   for(let i=0;i<sourceEnd-sourceStart;i++){
 //     target[targetStart+i] = this[sourceStart+1]  
 //   }
 // }
-// buf2.copy(buf1,1,0,3)
-// // buf3.copy(buf1,6,0,6)
-// console.log(buf1.toString())
-// // 如何连接 concat
+// copy(target,targetStart,sourceStart,sourceEnd)
+
+
+// Buffer.prototype.copy = function(target,targetStart,sourceStart,sourceEnd){
+//   for(let i=0;i<sourceEnd-sourceStart;i++){
+//     target[targetStart+i] = this[sourceStart+i]
+//   }
+// }
+
+// buf2.copy(buf1,1,0,6)
+// buf3.copy(buf1,6,0,6)
+// console.log(buf1) 
+// 如何连接 concat 返回新的buffer
+// Buffer.concat([buf1,buf2],长度)
 // let a = Buffer.concat([buf1,buf2],12)
 //  console.log(a)
 
+Buffer.prototype.join = function(sep){
+  let arr = []
+  let len = Buffer.from(sep).length
+  let offset = 0 //偏移量
+  let sp = 0 //查找的索引
+  while(-1 != (offset = this.indexOf(sep,sp)) ){
+    arr.push(this.slice(sp,offset))
+    sp = len+offset
+  }
+  arr.push(this.slice(sp))
+  return arr
+} 
+
+let a =  Buffer.from('珠**峰培**训').join('**')
+console.log(a)
 // indexOf 和字符串的index一样
-let index = Buffer.from('123*13').indexOf('*')
-console.log(index)
+// let index = Buffer.from('123*13').indexOf('*')
+// console.log(index)
 // buffer 没有分割的方法
+
+
+
+
+
+

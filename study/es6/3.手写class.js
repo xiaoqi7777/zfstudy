@@ -7,7 +7,7 @@ function _classCallCheck(sub,constructor){
   }
 }
 
-function defineProperties(target,props) {  
+function defineProperties(target,props) {   
   for(let i=0;i<props.length;i++){
   // console.log('进来了',props)
     Object.defineProperty(target,props[i].key,{

@@ -1,10 +1,44 @@
 
 class Promise{
-   
+  static resolve(data){
+    return new Promise((resolve,reject)=>{
+      resolve(data)
+    })
+  }
+  static reject(data){
+    return new Promise((resolve,reject)=>{
+      reject(data)
+    })
+  }
+  static all(args){
+    return new Promise((resolve,reject)=>{
+      let count=null
+      let arr = []
+      function fn(index,item){
+        count++;
+        arr.push(item)
+        if(count === args.length){
+          resolve(arr)
+        }
+      }
+      for(let i=0;i<args.length;i++){
+        args[i].then(data=>{
+          fn(i,data)
+        },reject)
+      }
+    })
+  }
+  static race(args){
+    return new Promise((resolve,reject)=>{
+      for(let i=0;i<args.length;i++){
+        args[i].then(resolve,reject)
+      }
+    })
+  }
   constructor(executor){
     this.s = '1'
     //状态
-    this.status = 'pedding'
+    this.status = 'pedding' 
     //保存 初始化的结果
     this.value = null
     this.reason = null
@@ -49,34 +83,45 @@ class Promise{
     let promise2;
     promise2 = new Promise((resolve,reject)=>{
       if(this.status === 'resolved'){
-        // console.log('--------')
-        try {
-          let x = onResolve(this.value)
-          this.resolvePromise(x,promise2,resolve,reject)
-        } catch (error) {
-          reject(error)
-        }
-
+        setTimeout(()=>{
+          try {
+            let x = onResolve(this.value)
+            this.resolvePromise(x,promise2,resolve,reject)
+          } catch (error) {
+            reject(error)
+          }
+        })
       }
       if(this.status === 'rejected'){
-        try {
-          let x = onReject(this.reason)
-          this.resolvePromise(x,promise2,resolve,reject)
-        } catch (error) {
-          reject(error)
-        }
-
+        setTimeout(()=>{
+          try {
+            let x = onReject(this.reason)
+            this.resolvePromise(x,promise2,resolve,reject)
+          } catch (error) {
+            reject(error)
+          }
+        })
       }
       if(this.status === 'pedding'){
         this.onResolveFn.push(()=>{
-         let x = onResolve(this.value)
-         this.resolvePromise(x,promise2,resolve,reject)
-
+          setTimeout(()=>{
+            try {
+              let x = onResolve(this.value)
+              this.resolvePromise(x,promise2,resolve,reject)
+            } catch (error) {
+              reject(error)
+            }
+          })
         })
         this.onRejectFn.push(()=>{
-         let x = onReject(this.reason)
-         this.resolvePromise(x,promise2,resolve,reject)
-
+          setTimeout(()=>{
+            try {
+              let x = onReject(this.reason)
+              this.resolvePromise(x,promise2,resolve,reject)
+            } catch (error) {
+              reject(error)
+            }
+          })
         })
       }
     })
@@ -86,22 +131,51 @@ class Promise{
     // console.log(x,promise2,resolve,reject)
     if(x === promise2) return reject(new TypeError('循环引用'))
     if(x !=null && (typeof x === 'function' || typeof x === 'object')){
+      try {
         let then = x.then
+        let called = false
         if(typeof then === 'function'){
           //说明是一个primose
           then.call(x,(y)=>{
-              resolve(y)
+            if(!called){
+              called = true
+              this.resolvePromise(y,promise2,resolve,reject)
+            }else{
+              return
+            }
           },(r)=>{
+            if(!called){
+              called = true
               reject(r)
+            }else{
+              return
+            }
           })
         }else{
-          resolve(x)
+          if(!called){
+            called = true
+            resolve(x)
+          }else{
+            return
+          }
         }
+      } catch (error) {
+        reject(x)
+      }
     }else{
-      console.log('jinlai l ')
-      resolve(this.value)
+      resolve(x)
     }
   }
+  finally(callback){
+    return this.then((data)=>{
+      callback()
+      return Promise.resolve(data)
+    },(err)=>{
+      callback(err)
+      return Promise.reject(err)
+    })
+  }
+
 
 
 }

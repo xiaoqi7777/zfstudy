@@ -6,7 +6,7 @@
 // let newObj = JSON.parse(JSON.stringify(obj));
 // console.log(newObj)
 
-// 第二种 ...obj
+// 第二种 ...obj 浅拷贝 (深拷贝 指得是拷贝后的内容是全新的)
 // let obj = { name: { schoolName: 'zfpx' }, a: 1 ,reg:undefined};
 // let newObj = {...obj,name:{...obj.name}};
 
