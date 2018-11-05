@@ -1,7 +1,7 @@
 // es6 继承
 class Animal{
   //静态方法  通过类来调用 Animal.flag
-  static flag(){
+  static flag(){ 
     return '好玩'
   }
   constructor(type){

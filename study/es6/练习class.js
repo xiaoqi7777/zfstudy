@@ -31,7 +31,7 @@ function defineProperties(target,props) {
 
 let Animal = function () {
     function Animal(type){
-      //1、类型检测 console.log('谁new 就向睡',this) 
+      //1、类型检测 console.log('谁new 就向谁',this) 
       _classCallCheck(this,Animal)
       this.type = type
     }
