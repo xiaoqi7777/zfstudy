@@ -6,6 +6,7 @@ function EventEmitter(){
 EventEmitter.prototype.on = function (event,callback) {
   this.obj[event] = callback
 }
+
 EventEmitter.prototype.emit = function (event,callback) {
   this.obj[event]() 
 }

@@ -31,10 +31,10 @@
 
 // 如何copy
 // 把两个小buffer 拷贝到一个大的内存空间上
-let buf1 = Buffer.alloc(12)
-let buf2 = Buffer.from('正负')
-let buf3 = Buffer.from('培训')
-// target targetStart sourceStart  sourceEnd //0代表第一个
+// let buf1 = Buffer.alloc(12)
+// let buf2 = Buffer.from('正负')
+// let buf3 = Buffer.from('培训')
+// target targetStart sourceStart  sourceEnd //0代表第一个 后面2参数包前不包后
 // Buffer.prototype.copy = function(target,targetStart,sourceStart,sourceEnd){
 //   for(let i=0;i<sourceEnd-sourceStart;i++){
 //     target[targetStart+i] = this[sourceStart+1]  
@@ -48,6 +48,24 @@ let buf3 = Buffer.from('培训')
 //  console.log(a)
 
 // indexOf 和字符串的index一样
-let index = Buffer.from('123*13').indexOf('*')
-console.log(index)
+// let index = Buffer.from('123*13').indexOf('*')
+// console.log(index)
 // buffer 没有分割的方法
+
+
+Buffer.prototype.join = function(sep){
+  let sepd = Buffer.from(sep)
+  let p = 0
+  let index = this.indexOf(sep,p)
+  let arr = []
+
+  while(-1 != index ) {
+    arr.push(this.slice(p,index))
+    p = index+sepd.length
+    index =  this.indexOf(sep,p)
+  }
+  arr.push(this.slice(p))
+  console.log(arr.toString())
+
+}
+let s = Buffer.from('12123你你13你你1asda').join('你你')
