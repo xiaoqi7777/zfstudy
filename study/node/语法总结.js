@@ -33,8 +33,15 @@
       path.extname(1123.js)               输出.js(找后缀)
       path.basename('1.min.js','.js')     输出1.min(通过后缀 找文件路径)
 
-  4、fs 
+  4、fs(有Sync是同步  无是异步) 
       fs.accessSync('文件名字') 判断文件是否存在
+      fs.readdir('m') 读取根文件下的 m文件下面的文件 返回一个数组 没有则是空数组
+      fs.stat('m') 读取根文件下的 m文件的状态 返回值r
+        r.isDirectory() 判断文件是不是目录
+        r.isFile() 判断文件是不是文件
+      fs.rmdir('m') 删除m目录
+      fs.unlink('m') 删除m文件
+
 
   5、vm
       vm.runInThisContext(fn)  沙箱 fn放在一个独立的虚拟环境中
@@ -45,6 +52,19 @@
         let vm = require('vm');
         vm.runInThisContext(fn);
 
-
+  循环事件处理总结
+    1、异步
+        用递归  函数回调，一个结束在调下一个
+        不能用for 循环
+          用递归 一般只考虑2层情况(第三层就是特殊情况,结束回调)
+          注意回调出来的条件，一般都是只有一个的情况下在出来
+          fnction next(index){
+                //判断结束的条件
+                //在里面回调next(给变量)
+                //next(index)
+          }
+          next(0)
+    2、同步
+        一般用for 循环
 */
 
