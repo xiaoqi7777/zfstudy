@@ -23,7 +23,7 @@
 // console.log(buf3.length) //6  一个汉字3个字节
 
 
-// 2、buffer方法  跟数组类似(没有分割join)
+// 2、buffer方法  跟数组类似(没有分割split)
 //  slice forEach copy concat(同数组) indexOf(同数组)
 // buf3.forEach((item)=>{
 //   console.log(item)
@@ -63,7 +63,7 @@
 // let a = Buffer.concat([buf1,buf2],12)
 //  console.log(a)
 
-Buffer.prototype.join = function(sep){
+Buffer.prototype.split = function(sep){
   let arr = []
   let len = Buffer.from(sep).length
   let offset = 0 //偏移量
@@ -76,7 +76,7 @@ Buffer.prototype.join = function(sep){
   return arr
 } 
 
-let a =  Buffer.from('珠**峰培**训').join('**')
+let a =  Buffer.from('珠**峰培**训').split('**')
 console.log(a)
 // indexOf 和字符串的index一样
 // let index = Buffer.from('123*13').indexOf('*')
@@ -84,7 +84,7 @@ console.log(a)
 // buffer 没有分割的方法
 
 
-Buffer.prototype.join = function(sep){
+Buffer.prototype.split = function(sep){
   let sepd = Buffer.from(sep)
   let p = 0
   let index = this.indexOf(sep,p)
@@ -99,4 +99,4 @@ Buffer.prototype.join = function(sep){
   console.log(arr.toString())
 
 }
-let s = Buffer.from('12123你你13你你1asda').join('你你')
+let s = Buffer.from('12123你你13你你1asda').split('你你')
