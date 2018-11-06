@@ -13,7 +13,6 @@ function rm(m){
     rm(item)
    });
    fs.rmdirSync(m)
-
  }else{
    fs.unlinkSync(m)
  }
