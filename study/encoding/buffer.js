@@ -84,7 +84,19 @@ console.log(a)
 // buffer 没有分割的方法
 
 
+Buffer.prototype.join = function(sep){
+  let sepd = Buffer.from(sep)
+  let p = 0
+  let index = this.indexOf(sep,p)
+  let arr = []
 
+  while(-1 != index ) {
+    arr.push(this.slice(p,index))
+    p = index+sepd.length
+    index =  this.indexOf(sep,p)
+  }
+  arr.push(this.slice(p))
+  console.log(arr.toString())
 
-
-
+}
+let s = Buffer.from('12123你你13你你1asda').join('你你')
