@@ -39,26 +39,27 @@
   <script>
     let $ = document.querySelector.bind(document)
     // await async
-    // function move(dom,time){
-    //     return new Promise((resolve,reject)=>{
-    //       let left = 0
-    //       let times = setInterval(()=>{
-    //         if(left >= time){
-    //           clearTimeout(times)
-    //           resolve('11')
-    //         }
-    //         left++
-    //         $(dom).style.left = left + 'px'    
-    //       },2)
-    //     })
-    // }
+    function move(dom,time){
+        return new Promise((resolve,reject)=>{
+          let left = 0
+          let times = setInterval(()=>{
+            if(left >= time){
+              clearTimeout(times)
+              resolve('11')
+            }
+            left++
+            $(dom).style.left = left + 'px'    
+          },2)
+        })
+    }
     
-    // async function gen() { 
-    //   await move('.div1',300)
-    //   await move('.div2',300)
-    //   await move('.div3',300)
-    // }
-    // gen()
+    async function gen() { 
+     let a = await move('.div1',300)
+     console.log('a',a)
+      await move('.div2',300)
+      await move('.div3',300)
+    }
+    gen()
 
 
     //generator

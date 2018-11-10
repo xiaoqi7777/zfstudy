@@ -13,7 +13,7 @@
       node:
         宏任务- setImmediate setTimeout
         微任务- process.nextTick(()=>{}) (类似于js的promise)
-
+ 
         流程- 每次都把队列清空后 或者达到执行的最大限制切换到下一个队列中会再次执行微任务
               微任务不能递归/循环 不然无限循环(找网上配图)
 
@@ -65,14 +65,20 @@
 		vm.runInThisContext(fn);
 	6、buffer
 		声明
-			Buffer.alloc('') 通过数组声明
-			Buffer.from('')  通过存放数组或者字符
+			Buffer.alloc('12') 通过数组声明
+			Buffer.from('我')  通过存放数组或者字符
 		方法 ---跟数组类似(没有分割split)
 			slice ---slice 是浅拷贝 拷贝的是引用地址 
 			forEach 
 			copy 
 			concat(同数组) 
 			indexOf(同数组)
+			
+			concat([a1,a2,a3],n)
+				例子(a1等代表的是Buffer,n代表的是截取多少字节,不写就是全部)
+					let a1 = Buffer.from('我')
+					let a2 = Buffer.from('ni')
+					let r = Buffer.concat([a1,a2],n)
 			重写split方法
 				Buffer.prototype.split = function(p){
 					let arr = []

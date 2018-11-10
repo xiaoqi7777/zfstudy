@@ -1,6 +1,8 @@
 let p = require('./readStream')
 
-let rs = new p('test.js')
+let rs = new p('test.js',{
+  highWaterMark:4
+})
 
 rs.on('data',(data)=>{
 console.log(data)

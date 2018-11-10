@@ -16,7 +16,7 @@
           Buffer.from(string) 通过存放数组或者字符
       方法
           slice forEach copy concat(同数组) indexOf(同数组)
-          join(截取,自定义)
+          split(截取,自定义)
         slice 是浅拷贝 拷贝的是引用地址
 
         copy(target,targetStart,sourceStart,sourceEnd)
@@ -24,9 +24,9 @@
             let r1 = Buffer.alloc(12)
             let r3 = Buffer.from('你')
             console.log(r3.copy(r1,0,0,3))  
-        join 
+        split 
           例子
-            Buffer.prototype.join = function (sep) {
+            Buffer.prototype.split = function (sep) {
             let arr = []
             let len = Buffer.from(sep).length
             let offset = 0 // offset+len
@@ -39,13 +39,13 @@
               arr.push(this.slice(offset))
               return arr
             }
-            let r3 = Buffer.from('你x说x的x委屈').join('x')
+            let r3 = Buffer.from('你x说x的x委屈').split('x')
         concat([a1,a2,a3],n)
           例子(a1等代表的是Buffer,n代表的是截取多少字节,不写就是全部)
             let a1 = Buffer.from('我')
             let a2 = Buffer.from('ni')
             let r = Buffer.concat([a1,a2],n)
-    fs 
+    fs  
       fs方法中一般会有同步和异步两种方法 
         同步马上拿到结果,异步通过callback,并且通过error-first获取错误
       fs.readFile('./test.js','utf8',(err,data)=>{})

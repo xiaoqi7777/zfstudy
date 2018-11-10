@@ -12,8 +12,8 @@ let rs =  fs.createReadStream('./a.md',{
   //读2  写4 执行1
   mode:0o666,//(权限,默认可读可写)
   start:0,
-  end:6,// 包前又包后
-  highWaterMark:2,//每次可读取64K
+  end:6,// 包前又包后 read文件一起的大小
+  highWaterMark:2,//每次可读取2K 默认 64*1024
 
 }) //不用显示的调用fs.read方法
 

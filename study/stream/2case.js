@@ -7,10 +7,10 @@ let ws = new WriteStream('test.js',{
 
 let i = 1
 ws.write('1123')
-ws.write('2')
-ws.write('3')
-ws.write('4')
-ws.write('为说的')
+// ws.write('2')
+// ws.write('3')
+// ws.write('4')
+// ws.write('为说的')
 
 // let flag = true
 // function write(){
