@@ -28,9 +28,12 @@ class ReadStream extends evnts{
     })
   }
   write(chunk, encoding = this.encoding, callback){
+
     chunk = Buffer.isBuffer(chunk)?chunk:Buffer.from(chunk)
-    this.len +=chunk
-    let flags = this.len>this.highWaterMark ;
+    console.log('flags11111111',chunk)
+
+    this.len +=chunk.length
+    let flags = this.len>=this.highWaterMark ;
     if(flags){
       this.needDrain = true;
     }
@@ -38,7 +41,6 @@ class ReadStream extends evnts{
         this.once('open',()=>this.write(chunk, encoding, callback))
     }else{
       //写
-      console.log('123')
       if(this.writing){
         this.cache.push({
           chunk,
@@ -46,17 +48,22 @@ class ReadStream extends evnts{
           callback
         })
       }else{
+
         //开始写第一个 后面的全部进cache数组
         this.writing = true
         this._write(chunk, encoding,()=>this.clearBuffer())
       }
     }
+    return this.len<this.highWaterMark
   }
   clearBuffer(){
+
     let obj = this.cache.shift()
     if(obj){
       this._write(obj.chunk,obj.encoding,()=>this.clearBuffer())
     }else{
+    console.log('123',this.needDrain)
+
       //被清空的情况 需要触发drain
       if(this.needDrain){
         this.writing = false
@@ -69,6 +76,7 @@ class ReadStream extends evnts{
   _write(chunk, encoding, callback){
     fs.write(this.fd,chunk,0,chunk.length,this.pos,(err,wirten)=>{
       this.pos += wirten
+      this.len -= wirten
       //清空数组下一项
       callback()
     })

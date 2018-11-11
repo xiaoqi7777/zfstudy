@@ -105,8 +105,8 @@
 		off('事件','函数')           	 删除
 		defaultMaxListeners      		事件总数
 	8、util
-		inherits(girl,people)	girl继承people  继承原型上的属性 公有属性
-
+		inherits(girl类,people类)	girl继承people原型上的方法     继承原型上的属性 公有属性(私有的不会继承)
+		fn.call(obj,参数1) fn是方法 obj是对象(继承私有的) 
 	9、stream
 		流   并不关系整体文件大小  
 		分为 可读流 写流 双工流
