@@ -7,7 +7,7 @@ let http = require('http')
 let client =  http.request({
   host:'localhost',
   method:'post',
-  port:80,
+  port:3000,
   path:'/user',
   headers:{
     name:'sg'
