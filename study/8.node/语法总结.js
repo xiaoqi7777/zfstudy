@@ -37,6 +37,7 @@
 		fs.accessSync('文件名字') 判断文件是否存在
 		fs.readdir('m') 读取根文件下的 m文件下面的文件 返回一个数组 没有则是空数组
 		fs.stat('m') 读取根文件下的 m文件的状态 返回值r
+			r.size 文件的大小
 			r.isDirectory() 判断文件是不是目录
 			r.isFile() 判断文件是不是文件
 		fs.rmdir('m') 删除m目录
