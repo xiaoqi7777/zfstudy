@@ -39,10 +39,27 @@ class Application extends EventEmitter{
     let ctx = this.createContext(req,res)
     // this.middlewares[0](ctx)
     //希望等待所有的中间件 执行完后  在取ctx.body 返回 回去
+    res.statusCode = 404
     let p =  this.compose(ctx,this.middlewares)
     p.then(function(){
-      console.log(ctx.body)
-    })
+      let body = ctx.body;
+      if(body instanceof Stream){
+        body.pipi(res)
+      }else if(typeof(body) === 'number'){
+        res.setHeader('Content-Type', 'text/plain;charset=utf8');
+        res.end(body.toString());
+      }else if(typeof body == 'object'){
+        res.setHeader('Content-Type','application/json;charset=utf8');
+        res.end(JSON.stringify(body));
+      }else if(typeof body === 'string' || Buffer.isBuffer(body)){
+        res.setHeader('Content-Type', 'text/plain;charset=utf8');
+        res.end(body);
+      }else{
+        res.end(`Not Found`);
+      }
+    }).catch(e=>{
+      this.emit('error',e);
+    });
   }
   use(callback){
     this.middlewares.push(callback)

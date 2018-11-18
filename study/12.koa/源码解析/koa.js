@@ -4,6 +4,11 @@ let server = new Koa()
 
 server.use((ctx,next)=>{
   ctx.body = 123
+  //注意1、next() 前面一般加 await  
+  // 如果不加 next 下面一个函数是异步  我们这不会等待  直接往下走 返回undefined
+  //注意2、next() 前面加return 也可以
+  // 一个promise 如果返回了一个新的promise  他会等待promise
+  //await 和 return 区别  return后面代码不会走
   next()
   ctx.body = 2000
 

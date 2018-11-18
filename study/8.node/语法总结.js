@@ -56,7 +56,15 @@
 					//回调      bytesRead参数是 实际读取的字节数
 				fs.write(fdr,buf,0,bufLength,null,(err,data)=>{}) //参数同上
 				fs.close(fdr)
-	5、vm
+	5、url
+	   	url 模块下的parse(url,boolean) 能解析 url  boolean为true时 取到的query是一个对象(?后面的)
+			let {pathname,query} = url.parse('http://www.baidu.com:8080/s?a==1',true)
+			console.log(pathname,query)
+			
+			require('querystring').parse(str,'&@','#=') 解析str 第一个参数 是对象之前分割 第二个参数是 key 和 value分割
+			let str = 'username#=123&@password#=456'
+			let obj = require('querystring').parse(str,'&@','#=')		
+	6、vm
       vm.runInThisContext(fn)  沙箱 fn放在一个独立的虚拟环境中
       例子
         let b = 2;
@@ -64,7 +72,7 @@
         let fn = `(function a(){let b = 1;console.log('b2',b)})()`;
         let vm = require('vm');
 		vm.runInThisContext(fn);
-	6、buffer
+	7、buffer
 		声明
 			Buffer.alloc('12') 通过数组声明
 			Buffer.from('我')  通过存放数组或者字符
@@ -97,7 +105,7 @@
 					arr.push(this.slice(offset))
 					return arr.toString()
 				}
-	7、events(事件)
+	8、events(事件)
 		on('事件','函数')				监听
 		on('newListener','函数')    	监听 用户绑定的事件
 		once('事件','函数')    			监听一次
@@ -105,10 +113,10 @@
 		prependListener('事件','函数')   插队到最前面
 		off('事件','函数')           	 删除
 		defaultMaxListeners      		事件总数
-	8、util
+	9、util
 		inherits(girl类,people类)	girl继承people原型上的方法     继承原型上的属性 公有属性(私有的不会继承)
 		fn.call(obj,参数1) fn是方法 obj是对象(继承私有的) 
-	9、stream
+	10、stream
 		流   并不关系整体文件大小  
 		分为 可读流 写流 双工流
 		读取文件时 需要用到文件的流
