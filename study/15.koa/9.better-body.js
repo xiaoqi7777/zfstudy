@@ -4,6 +4,17 @@ let fs = require('fs');
 let path = require('path');
 let uuid = require('uuid');
 
+console.log(uuid.v4())
+
+/*
+使用起来很简单，两种：
+
+1、uuid.v1(); -->基于时间戳生成  （time-based）
+
+2、uuid.v4(); -->随机生成  (random)
+
+*/
+
 Buffer.prototype.split = function (sep) {
   let len = Buffer.from(sep).length;
   let arr = [];

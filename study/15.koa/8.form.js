@@ -4,11 +4,15 @@ let fs = require('fs');
 let path = require('path');
 // 中间件 中间件一般是一个函数，会在use方法中的最上面使用
 let convert = require('koa-convert');
+//koa-convert 将Generator函数 转化为 一个promise
 let body = require('koa-better-body');
-
-app.use(convert(body({
+// koa-better-body 返回的是一个 Generator函数
+// 会将解析后的内容添加到ctx.request.body上
+let s = body({
   uploadDir:path.join(__dirname,'upload')
-}))); // 会将解析后的内容添加到ctx.request.body上
+})
+console.log('===',s)
+app.use(s); // 会将解析后的内容添加到ctx.request.body上
 app.use(async (ctx,next)=>{
   if(ctx.path === '/'){
    ctx.set('Content-Type','text/html;charset=utf8');
@@ -16,11 +20,13 @@ app.use(async (ctx,next)=>{
   }else{
     return next();
   }
-});
+}); 
 app.use(async(ctx,next)=>{
   if(ctx.path == '/login' && ctx.method === 'POST'){
     // 获取请求体代码
-    console.log(ctx.request.fields)
+    console.log('11',ctx.request.files)
+    console.log("body",ctx.request.body)
+    console.log('33',ctx.request.fields)
     ctx.body = ctx.request.fields;
   }
 });
