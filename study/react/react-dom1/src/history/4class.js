@@ -90,7 +90,7 @@ render(<Al count={1} {...obj}></Al>,window.root)
     age:PropTypes.number.isRequired,
     gender:PropTypes.oneOf(['男','女']),
     postion:PropTypes.shape({
-      x:PropTypes.number,
+      x: PropTypes.number,
       y: PropTypes.number
     }),
     hobby: PropTypes.arrayOf(PropTypes.string),
@@ -107,12 +107,13 @@ render(<Al count={1} {...obj}></Al>,window.root)
     this.state 是当前组件的状态 是一个对象
     this.setState 对状态里面的对象设置值 
     setState 批量更新的操作（ 并不是一直的批量更新 ）
-    setState 可以写成函数的形式 或者回调函数的形式 
-             写成函数的形式 相当于下一个状态是依赖于上一个状态的
-  （名字都是固定的）
-  static defaultProps:{
-      name:'sg',
-  }
+      1、加定时器 他会批量更新 因为初次进来 他会把所有的setState执行一次 更新完后就是遇到一个更新一个
+      2、也可以写成函数的形式 写成函数的形式 相当于下一个状态是依赖于上一个状态的(形参是上一个状态)
+      3、或者回调(第二种是他的简写，实际都一样)
+  
+    static defaultProps:{
+        name:'sg',
+    }
     默认属性 
 
 
