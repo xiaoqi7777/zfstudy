@@ -1,29 +1,22 @@
 
 import React from 'react';
-import redux from '../redux'
+import store from '../store'
+import actions from '../store/actions/Counter'
 
-function reducer(state = {number:0},action){
-  switch(action.type){
-    case 'ADD':
-    return {number:state.number+action.count}
-  }
-  return state
-}
-let store = redux(reducer)
 export default class  Counter extends React.Component{
     state = {
-      number:store.getState().number
+      number:store.getState().Counter.number
     }
     componentWillMount(){
       store.subscribe(()=>{
         this.setState({
-          number:store.getState().number
+          number:store.getState().Counter.number
         })
       })
     }
     add = ()=>{
-      console.log('1')
-      store.dispatch({type:'ADD',count:1})
+      console.log('1',store.getState())
+      store.dispatch(actions.add(2))
     }
     render(){
       return(
