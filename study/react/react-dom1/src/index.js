@@ -9,4 +9,4 @@
 // ReactDOM.render(<MessageBox></MessageBox>,window.root)
 
 
-import './lifeCyle/index'
+import './redux/index'
