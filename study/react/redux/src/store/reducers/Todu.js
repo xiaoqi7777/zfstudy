@@ -1,8 +1,8 @@
 import * as Types from '../action-types'
  function Todu(state = [],action){
+  console.log('action.addTodu')
   switch(action.type){
     case Types.ADD_TODO:
-    console.log(action.addTodu)
     return [...state,action.addTodu]
   }
   return state
