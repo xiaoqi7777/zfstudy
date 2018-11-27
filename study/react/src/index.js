@@ -1,22 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// 16.3 contextApi
+import { HashRouter, Route, Link, Switch,Redirect} from './react-router-dom';
+import Home from './views/Home'
+import Profile from './views/Profile'
+import User from './views/User'
+import 'bootstrap/dist/css/bootstrap.css'
+import Logo from './views/Logo';
+import Private from './Private';
+import MenuLink from './MenuLink';
+class App extends React.Component{
+  render(){
+    return <HashRouter>
+      <div>
+        <div className="navbar navbar-default">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <Logo></Logo>
+            </div>
+            <ul className="navbar-nav nav">
+            <MenuLink to="/" exact={true}>首页</MenuLink>
+            <MenuLink to="/profile">个人中心</MenuLink>
+            <MenuLink to="/user">用户</MenuLink>
+            </ul>
+            </div>
+        </div>
+        <Switch>
+          <Route path="/" exact={true}  component={Home}></Route>
+          <Private path="/profile" component={Profile}></Private>
+          <Route path="/user" component={User}></Route>
+          <Redirect to="/"></Redirect>
+        </Switch>
+        
+      </div>
+    </HashRouter>
+  }
+}
 
-import Counter from './components/Counter'
-import Todo from './components/Todo'
-import Test from './components/Test';
-
-// react-redux 主要是把 react 和redux 进行链接的一个库
-// 在父级需要提供store 这样在每个组件中就可以不用引入store了
-// Provider != ContextApi Provider
-import {Provider}  from 'react-redux'
-import store from './store';
-
-ReactDOM.render(<Provider store={store}>
-<>
-  <Counter></Counter>
-  <Todo></Todo>
-  <Test><p>xxxx</p><p>xxxx</p></Test>
-</>
-</Provider>,window.root);
-
-
+ReactDOM.render(<App></App>,window.root)
