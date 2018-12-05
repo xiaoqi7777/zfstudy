@@ -1,8 +1,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter as Router,Route,Switch,Redirect,Link} from 'react-router-dom'
-
+import {HashRouter as Router,Route,Switch,Redirect,Link,NavLink} from 'react-router-dom'
+import Login from './views/Login'
 import Home from './views/Home'
 import User from './views/User'
 import Profile from './views/Profile'
@@ -18,23 +18,32 @@ class App extends React.Component{
       <Router>
       <div>
         {/* Switch组件匹配到一个后就不会继续匹配了 */}
-        <ul className='navbar-nav nav'>
-          <MenuLink to='/' exact={true}>首页</MenuLink>
-          <MenuLink to='/profile' exact={true}>个人中心</MenuLink>
-          <MenuLink to='/sg' exact={true}>用户</MenuLink>
-          <MenuLink to='/user' exact={true}>登录</MenuLink>
-         {/* <li><Link to='/'>首页123</Link></li> 
-         <li><Link to='/profile'>个人中心213</Link></li> 
-         <li><Link to='/user'>用户</Link></li>  */}
-        </ul>
+        <div className='navbar navbar-default'>
+          <div className='container-fluid'>
+            <div className='navbar-header'>
+              <a className='navbar-brand'>后台管理</a>
+            </div>
+            <ul className='navbar-nav nav'>
+              <MenuLink to='/' exact={true}>首页</MenuLink>
+              <MenuLink to='/profile' exact={true}>个人中心</MenuLink>
+              <MenuLink to='/user' exact={true}>用户</MenuLink>
+              <MenuLink to='/login' exact={true}>登录</MenuLink>
+            {/* <li><Link to='/'>首页123</Link></li> 
+            <li><Link to='/profile'>个人中心213</Link></li> 
+            <li><Link to='/user'>用户</Link></li>  */}
+            </ul>
+          </div>
+        </div>
+        
         <div  className="container">
           <Switch>
-            <Protected path='profile1' component={Profile}></Protected>
+            {/* <Protected path='profile1' component={Profile}></Protected> */}
             {/* 默认需要先匹配到一级 才能展现二级 */}
             <Route path="/"  exact={true} component={Home} />
+            <Protected path="/profile" component={Profile} />
             <Route path="/sg"  exact={true} component={Home} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/user" render={A} />
+            <Route path="/user"  component={User} />
+            <Route path='/login' component={Login}></Route>
             {/* <Route component={User} /> */}
             <Redirect to="/" /> 
           </Switch>
@@ -56,6 +65,8 @@ function A(){
 
   1、默认情况下 从上到下匹配 不严格匹配
       exact={true} 严格匹配
+      二级路由:必须先匹配到 一级路由
+      有此路由下有二级路由的时候不能加  加了会导致 二级路由匹配不到 直接进入 Redirect
     若不写path 路径默认是 /
   2、Switch组件匹配到一个后就不会继续匹配了
   3、Redirect重定向
