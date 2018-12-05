@@ -30,6 +30,11 @@
 		__dirname表示的是当前的文件所在的文件夹
 		path.split()
 		path.resolve(__dirname,'test.js')   这两个都一样 用来拼接地址
+
+		path.resolve和path.join区别(第二个参数是否带/)
+		path.resolve(__dirname,'/index.html') //e:\index.html
+		path.join(__dirname,'/index.html') //e:\study\node\index.html
+
 		path.extname(1123.js)               输出.js(找后缀)
 		path.basename('1.min.js','.js')     输出1.min(通过后缀 找文件路径)
 
